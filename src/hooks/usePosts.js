@@ -6,12 +6,13 @@ export const usePosts = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Cargar posts desde la API (solo IDs 1-100)
     const loadPosts = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
             const data = await getAllPosts();
-            // Añadir una fecha simulada para mostrar en la UI (solo estético)
+            // Agregar fecha simulada para mostrar en UI
             const postsWithDate = data.map(post => ({
                 ...post,
                 createdAt: new Date(Date.now() - Math.random() * 30 * 24 * 3600000).toLocaleDateString('es-ES')
@@ -24,20 +25,25 @@ export const usePosts = () => {
         }
     }, []);
 
+    // Cargar al montar
     useEffect(() => {
         loadPosts();
     }, [loadPosts]);
 
+    // ---- CREAR POST (local + simulado en API) ----
     const addPost = async (postData) => {
         try {
+            // Llamar a la API (devuelve { id: 101 } simulado)
             await createPost(postData);
-            // Como la API devuelve id 101, usamos timestamp para evitar colisiones locales
+            
+            // Crear post local con ID único (mayor a 100)
             const newPost = {
                 ...postData,
-                id: Date.now(), // ID único local
+                id: Date.now(), // ID local (ej. 1734567890123)
                 createdAt: new Date().toLocaleDateString('es-ES'),
                 userId: 1,
             };
+            // Agregar al estado local
             setPosts(prev => [newPost, ...prev]);
             return newPost;
         } catch (err) {
@@ -46,9 +52,14 @@ export const usePosts = () => {
         }
     };
 
+    // ---- EDITAR POST (distingue entre API y local) ----
     const editPost = async (id, postData) => {
         try {
-            await updatePost(id, postData);
+            // Si el ID es de la API (1-100), actualizar en el servidor
+            if (id <= 100) {
+                await updatePost(id, postData);
+            }
+            // SIEMPRE actualizar en el estado local (tanto para API como para local)
             setPosts(prev =>
                 prev.map(post => (post.id === id ? { ...post, ...postData } : post))
             );
@@ -58,9 +69,14 @@ export const usePosts = () => {
         }
     };
 
+    // ---- ELIMINAR POST (distingue entre API y local) ----
     const removePost = async (id) => {
         try {
-            await deletePost(id);
+            // Si el ID es de la API, eliminarlo del servidor
+            if (id <= 100) {
+                await deletePost(id);
+            }
+            // SIEMPRE eliminar del estado local
             setPosts(prev => prev.filter(post => post.id !== id));
         } catch (err) {
             setError(err.message);
