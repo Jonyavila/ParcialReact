@@ -2,17 +2,12 @@
 
 Aplicación web desarrollada con **React + Vite** para la gestión de posts, consumiendo una API REST (JSONPlaceholder). Presenta una interfaz moderna con modo oscuro/claro, efectos glassmorphism, animaciones y una experiencia de usuario de alto nivel.
 
-## ✨ Características
+## 🌐 Demostración en línea (GitHub Pages)
 
-- ✅ Listado, creación, edición y eliminación de posts (CRUD completo).
-- 🧭 Navegación con React Router (HashRouter).
-- 🗃️ Estado global con Context API (temas y posts).
-- 🎨 Temas claro/oscuro con persistencia en localStorage.
-- 📌 Uso de `useRef` para enfocar automáticamente el formulario.
-- 🔄 Custom hook `usePosts` para manejar la lógica de datos.
-- ⚡ Animación de gradiente móvil en el título "⚡POSTX".
-- 🖱️ Efectos glassmorphism, neón y transiciones suaves.
-- 📱 Diseño 100% responsive.
+Accede al sitio desplegado en:  
+👉 **[https://jonyavila.github.io/ParcialReact/]**
+
+---
 
 ## 👥 Integrantes del equipo
 
@@ -20,19 +15,18 @@ Aplicación web desarrollada con **React + Vite** para la gestión de posts, con
 - **Sofia Fronte** - Desarrollador Full Stack
 - **Tamara Navarro** - Desarrollador Full Stack
 
-## 🛠️ Tecnologías utilizadas
+---
 
-- ⚛️ React 18
-- ⚡ Vite
-- 🧭 React Router DOM (HashRouter)
-- 🗃️ Context API (ThemeContext, PostsContext)
-- 📌 Hooks personalizados (usePosts)
-- 🎨 CSS puro (sin frameworks)
-- 🔌 JSONPlaceholder API (mock)
+## 📋 Requisitos previos
 
-## 📁 Estructura del proyecto
+- **Node.js** (v18 o superior)  
+- **npm** (v9 o superior) o **yarn**
 
+Verifica con:
 
+```bash
+node -v
+npm -v
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
